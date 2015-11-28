@@ -103,6 +103,36 @@ public class UserRepositoryTest {
 	}
 
 	@Test
+	public void testMultipleSort() {
+		DataTablesInput input = getBasicInput();
+
+		input.getOrder().add(0, new OrderParameter(3, "desc"));
+
+		// sorting by id asc and status desc
+		DataTablesOutput<User> output = userRepository.findAll(input);
+		assertNotNull(output);
+		List<User> users = output.getData();
+		assertNotNull(users);
+		assertEquals(10, users.size());
+
+		User firstUser = users.get(0);
+		User lastUser = users.get(9);
+		assertEquals(2, (int) firstUser.getId());
+		assertEquals(20, (int) lastUser.getId());
+	}
+
+	@Test
+	public void testWithoutSort() {
+		DataTablesInput input = getBasicInput();
+
+		input.getOrder().clear();
+
+		DataTablesOutput<User> output = userRepository.findAll(input);
+		assertNotNull(output);
+		assertNull(output.getError());
+	}
+
+	@Test
 	public void testFilterGlobal() {
 		DataTablesInput input = getBasicInput();
 
@@ -123,6 +153,28 @@ public class UserRepositoryTest {
 		User lastUser = users.get(9);
 		assertEquals("john1", firstUser.getUsername());
 		assertEquals("john18", lastUser.getUsername());
+	}
+
+	@Test
+	public void testFilterGlobalIgnoreCase() {
+		DataTablesInput input = getBasicInput();
+
+		input.getSearch().setValue("OhN1");
+
+		DataTablesOutput<User> output = userRepository.findAll(input);
+		assertNotNull(output);
+		assertEquals(11, (long) output.getRecordsFiltered());
+	}
+
+	@Test
+	public void testFilterOnOneColumnIgnoreCase() {
+		DataTablesInput input = getBasicInput();
+
+		input.getColumns().get(1).getSearch().setValue("OhN1");
+
+		DataTablesOutput<User> output = userRepository.findAll(input);
+		assertNotNull(output);
+		assertEquals(11, (long) output.getRecordsFiltered());
 	}
 
 	@Test
@@ -212,6 +264,30 @@ public class UserRepositoryTest {
 		assertEquals(12, (long) output.getRecordsFiltered());
 		assertEquals(24, (long) output.getRecordsTotal());
 
+	}
+
+	@Test
+	public void testWithZeroLength() {
+		DataTablesInput input = getBasicInput();
+
+		input.setLength(0);
+		DataTablesOutput<User> output = userRepository.findAll(input);
+		assertNotNull(output);
+		assertNotNull(output.getError());
+		assertEquals(output.getError(),
+				"java.lang.ArithmeticException: / by zero");
+	}
+
+	@Test
+	public void testWithNegativeLength() {
+		DataTablesInput input = getBasicInput();
+
+		input.setLength(-1);
+		DataTablesOutput<User> output = userRepository.findAll(input);
+		assertNotNull(output);
+		assertNull(output.getError());
+		assertEquals(24, (long) output.getRecordsFiltered());
+		assertEquals(24, (long) output.getRecordsTotal());
 	}
 
 	/**

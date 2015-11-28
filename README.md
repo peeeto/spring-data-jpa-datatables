@@ -1,3 +1,6 @@
+[![Build Status](https://api.travis-ci.org/darrachequesne/spring-data-jpa-datatables.svg)](https://travis-ci.org/darrachequesne/spring-data-jpa-datatables)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.darrachequesne/spring-data-jpa-datatables/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.darrachequesne/spring-data-jpa-datatables)
+
 # spring-data-jpa-datatables
 This project is an extension of the [Spring Data JPA](https://github.com/spring-projects/spring-data-jpa) project to ease its use with jQuery plugin [DataTables](http://datatables.net/) with **server-side processing enabled**.
 
@@ -9,7 +12,7 @@ This will allow you to handle the Ajax requests sent by DataTables for each draw
 <dependency>
 	<groupId>com.github.darrachequesne</groupId>
 	<artifactId>spring-data-jpa-datatables</artifactId>
-	<version>1.1</version>
+	<version>1.3</version>
 </dependency>
 ```
 

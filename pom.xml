@@ -5,7 +5,7 @@
 
 	<groupId>com.github.darrachequesne</groupId>
 	<artifactId>spring-data-jpa-datatables</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.4-SNAPSHOT</version>
 
 	<name>Spring Data JPA for DataTables</name>
 	<description>Spring Data JPA extension to work with the great jQuery plug-in DataTables (http://datatables.net/)</description>
@@ -183,8 +183,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${version.plugin.maven-compiler-plugin}</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<encoding>${source.encoding}</encoding>
 				</configuration>
 			</plugin>
